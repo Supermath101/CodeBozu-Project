@@ -8,7 +8,9 @@ soup = BeautifulSoup(html_file.text, "lxml")
 print("Birthday: " + soup.find(class_="bday").text)
 
 # print(soup.find(string="Spouse(s)").parent.parent.prettify())
-
+mylist=[]
 container=soup.find(string="Spouse(s)")
 for thing in container.parent.parent.find(class_="infobox-data").stripped_strings:
-    if (re.findall("[a-zA-Z]"))
+    # if (re.findall("[a-zA-Z]"):
+    mylist.append(thing)
+print(mylist)
