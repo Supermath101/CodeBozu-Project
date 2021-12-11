@@ -36,7 +36,14 @@ for maybe_name in container.parent.parent.find(class_="infobox-data").stripped_s
 
 
 # Political Party
-political_party=soup.find('div',class_='plainlist').text
+parties = [] # Just in case we find multiple birth dates, lets display all of them.
+
+for maybe_party_container in soup.find_all(string="Political party"):
+    for maybe_party in soup_to_infobox_data(maybe_party_container):
+        for party in re.findall("[A-Z][a-z]+", maybe_party, re.M):
+            parties.append(party)
+
+political_party = ", ".join(parties)
 
 # Politicians
 politician=soup.find('div',class_='fn').text
