@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
+def soup_to_infobox_data(keyword):
+    return keyword.parent.parent.find(class_="infobox-data").stripped_strings
+
 html_file=requests.get('https://en.wikipedia.org/wiki/Donald_Trump')
 soup = BeautifulSoup(html_file.text, "lxml")
 
@@ -12,6 +15,15 @@ date_of_birth=soup.find(class_="bday").text
 We need it in this type of format 
 July 15,1975
 """
+birth_dates = [] # Just in case we find multiple birth dates, lets display all of them.
+
+for maybe_birth_date_container in soup.find_all(string="Born"):
+    for maybe_birth_date in soup_to_infobox_data(maybe_birth_date_container):
+        for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth_date, re.M):
+            birth_dates.append(birth_date)
+# print(birth_dates)
+for i in birth_dates:
+    date_of_birth=i
 # Spouse
 spouses = []
 
