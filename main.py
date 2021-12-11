@@ -36,7 +36,13 @@ for maybe_name in container.parent.parent.find(class_="infobox-data").stripped_s
 
 
 # Political Party
-political_party=soup.find('div',class_='plainlist').text
+# political_party=soup.find('div',class_='plainlist').text
+parties=[]
+for maybe_party_container in soup.find_all(string="Political party"):
+    for maybe_party in soup_to_infobox_data(maybe_party_container):
+        for party in re.findall("[A-Z][a-z]+", maybe_party, re.M):
+            parties.append(party)
+print(parties)
 
 # Politicians
 politician=soup.find('div',class_='fn').text
@@ -51,4 +57,4 @@ This is probably a bug as I think this does not work with everything. Also I nee
 
 birth_location=soup.find('a',title="Queens").text
 
-print(politician, birth_full_name,date_of_birth,birth_location,political_party)
+# print(politician, birth_full_name,date_of_birth,birth_location,political_party)
