@@ -1,6 +1,8 @@
+from datetime import date
 from bs4 import BeautifulSoup
 import requests
 import re
+import pandas as pd
 
 def soup_to_infobox_data(keyword):
     return keyword.parent.parent.find(class_="infobox-data").get_text().splitlines()
@@ -22,11 +24,11 @@ for link in links_f.findAll('a'):
     getting_link="https://en.wikipedia.org"+link.get('href')
     links.append(getting_link)
 
-print(links)
-
 
 # Birth details
 for i in links:
+    html_file = requests.get(i)
+    soup=BeautifulSoup(html_file.text,"lxml")
     birth_towns = []
 
     birth_dates = [] # Just in case we find multiple birth dates, lets display all of them.
@@ -45,7 +47,6 @@ for i in links:
         for maybe_name in soup_to_infobox_data(maybe_name_container):
             for name in re.findall("^[A-z]+ [A-z]+", maybe_name):
                     spouses.append(name)
-
 
     # Political Party
     parties = [] # Just in case we find multiple birth dates, lets display all of them.
@@ -67,5 +68,6 @@ for i in links:
 
     birth_location=", ".join(birth_towns)
     date_of_birth=", ".join(birth_dates)
-
+    df=pd.DataFrame({'birth_name':[birth_full_name], 'date of birth':[date_of_birth], 'birth location':[birth_location], "political party":[political_party]})
+    df.to_csv('information.csv',index=False)
     print(birth_full_name,date_of_birth,birth_location,political_party)
