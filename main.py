@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import pandas as pd
+from csv import writer
 
 def soup_to_infobox_data(keyword):
     return keyword.parent.parent.find(class_="infobox-data").get_text().splitlines()
@@ -68,6 +69,8 @@ for i in links:
 
     birth_location=", ".join(birth_towns)
     date_of_birth=", ".join(birth_dates)
+
     df=pd.DataFrame({'birth_name':[birth_full_name], 'date of birth':[date_of_birth], 'birth location':[birth_location], "political party":[political_party]})
-    df.to_csv('information.csv',index=False)
-    print(birth_full_name,date_of_birth,birth_location,political_party)
+    # print(df)
+    df.to_csv('information.csv',mode='a',index=False)
+    mylist=[birth_full_name,date_of_birth,birth_location,political_party]
