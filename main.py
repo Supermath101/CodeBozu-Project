@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import re
 
-req = Request("https://en.wikipedia.org/wiki/Category:20th-century_vice_presidents_of_the_United_States")
+req = Request("https://en.wikipedia.org/wiki/Category:19th-century_presidents_of_the_United_States")
 html_page = urlopen(req)
 
 soup = BeautifulSoup(html_page, "lxml")
@@ -40,7 +40,6 @@ for i in links:
                 birth_dates.append(birth_date)
             for birth_town in re.findall("[A-z. ]+, [A-z. ]+, [A-z. ]+", maybe_birth):
                 birth_towns.append(birth_town)
-
     # Spouse
     spouses = []
 
@@ -60,8 +59,11 @@ for i in links:
     political_party = ", ".join(parties)
 
     # Birth Full name
-    birth_full_name=soup.find(class_="nickname").text
-
+    # Try to get a header than personal info
+    # regex for (parenthsis)
+    birth_full_name=soup.find(id="firstHeading").text
+    for name in re.findall("[A-z \\.]+", birth_full_name):
+        full_birth_name=name
     # Birth Location
     """
     This is probably a bug as I think this does not work with everything. Also I need New York, USA as well.
