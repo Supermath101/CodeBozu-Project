@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import re
 
-req = Request("https://en.wikipedia.org/wiki/Category:19th-century_presidents_of_the_United_States")
+req = Request("https://en.wikipedia.org/wiki/Category:20th-century_presidents_of_the_United_States")
 html_page = urlopen(req)
 
 soup = BeautifulSoup(html_page, "lxml")
@@ -74,5 +74,5 @@ for i in links:
 
     df=pd.DataFrame({'birth_name':[birth_full_name], 'date of birth':[date_of_birth], 'birth location':[birth_location], "political party":[political_party]})
     # print(df)
-    df.to_csv('information.csv',mode='a', header=False, index=False)
+    df.to_csv('try.csv',mode='a', header=False, index=False)
     mylist=[birth_full_name,date_of_birth,birth_location,political_party]
