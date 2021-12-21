@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import re
 
-req = Request("https://en.wikipedia.org/wiki/Category:20th-century_presidents_of_the_United_States")
+req = Request("https://en.wikipedia.org/wiki/Category:20th-century_vice_presidents_of_the_United_States")
 html_page = urlopen(req)
 
 soup = BeautifulSoup(html_page, "lxml")
@@ -38,7 +38,7 @@ for i in links:
         for maybe_birth in soup_to_infobox_data(maybe_birth_container):
             for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth):
                 birth_dates.append(birth_date)
-            for birth_town in re.findall("[A-z. ]+, [A-z. ]+, [A-z. ]+", maybe_birth):
+            for birth_town in re.findall("[A-z., ]+U\\.S\\.", maybe_birth):
                 birth_towns.append(birth_town)
     # Spouse
     spouses = []
@@ -74,5 +74,9 @@ for i in links:
 
     df=pd.DataFrame({'birth_name':[birth_full_name], 'date of birth':[date_of_birth], 'birth location':[birth_location], "political party":[political_party]})
     # print(df)
-    df.to_csv('try.csv',mode='a', header=False, index=False)
+    df.to_csv('information.csv',mode='a', header=False, index=False)
     mylist=[birth_full_name,date_of_birth,birth_location,political_party]
+
+
+# feature a
+# feature b               but  buugs 
