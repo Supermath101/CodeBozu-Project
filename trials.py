@@ -24,7 +24,8 @@ whole_page=soup.find(class_="mw-content-ltr")
 links_f=whole_page.find(class_="mw-content-ltr")
 
 
-html_file = requests.get('https://en.wikipedia.org/wiki/Theodore_Roosevelt')
+html_file = requests.get('https://en.wikipedia.org/wiki/Theodore_Roosevelt')       
+# kvdsguf
 soup=BeautifulSoup(html_file.text,"lxml")
 birth_towns = []
 
