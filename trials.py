@@ -33,27 +33,30 @@ for maybe_birth_container in soup.find_all(string="Born"):
     l=splitting(maybe_birth_container)
     for maybe_birth in soup_to_infobox_data(maybe_birth_container):
         for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth):
-            print(maybe_birth)
-            print(birth_date)
             # This will give out the state but its by string manipulation
-            # print(type(birth_date))
+            print(type(birth_date))
             # print(birth_date)
             # j=l.split(birth_date,1)[1]
             # print(j)
             birth_dates.append(birth_date)
             # print(birth_dates)
+            print('..')
         for birth_town in re.findall("[A-z. ]+, [A-z. ]+, [A-z. ]+", maybe_birth):
+            print('--')
+            print(birth_town)
             if birth_town=="":
-                for maybe_birth in soup_to_infobox_data(maybe_birth_container):
-                    print(maybe_birth)
-
-                    for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth):
-                        # This will give out the state but its by string manipulation
-                        # print(type(birth_date))
-                        print(birth_date)
-                        j=l.split(birth_date,1)[1]
-                        print(j)
-                        birth_towns.append(j)
+                for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth):
+                    # This will give out the state but its by string manipulation
+                    # print(type(birth_date))
+                    print(birth_date)
+                    print('----')
+                    j=l.split(birth_date,1)[1]
+                    print(j)
+                    birth_towns.append(j)
+            else:
+                birth_towns.append(birth_town)
+print(birth_dates)
+print(birth_towns)
             
     
 # Spouse
