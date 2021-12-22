@@ -10,7 +10,7 @@ def soup_to_infobox_data(keyword):
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
-req = Request("https://en.wikipedia.org/wiki/Category:20th-century_vice_presidents_of_the_United_States")
+req = Request("https://en.wikipedia.org/wiki/Category:19th-century_vice_presidents_of_the_United_States")
 html_page = urlopen(req)
 
 soup = BeautifulSoup(html_page, "lxml")
