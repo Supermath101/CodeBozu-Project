@@ -15,11 +15,15 @@ def bio_data(soup, soup_to_infobox_data):
     birth_dates = [] # Just in case we find multiple birth dates, lets display all of them.
 
     for maybe_birth_container in soup.find_all(string="Born"):
+        # print(soup_to_infobox_data(maybe_birth_container))
         for maybe_birth in soup_to_infobox_data(maybe_birth_container):
             for birth_date in re.findall("[A-Z][a-z]+ \d{1,2}, \d{4}", maybe_birth):
                 birth_dates.append(birth_date)
-            for birth_town in re.findall("[A-z., ]+U\\.S\\.", maybe_birth):
-                birth_towns.append(birth_town)
+            first=re.sub('(.*?)(\d)', '', maybe_birth)
+            if first[0]==")":
+                birth_towns.append(first[1::])
+            else:
+                birth_towns.append(first)
 
     # Spouse
     spouses = []
