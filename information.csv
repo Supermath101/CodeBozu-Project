@@ -1,4 +1,5 @@
 birth_name,date of birth,birth location,political party
+<<<<<<< Updated upstream
 Joe Biden,"November 20, 1942","Scranton, Pennsylvania, U.S.",Democratic
 George W. Bush,"July 6, 1946","New Haven, Connecticut, U.S.",Republican
 Barack Obama,"August 4, 1961","Honolulu, Hawaii, U.S.",Democratic
@@ -96,3 +97,5 @@ Joe Biden,"November 20, 1942","Scranton, Pennsylvania, U.S.",Democratic
 George W. Bush,"July 6, 1946","New Haven, Connecticut, U.S.",Republican
 Barack Obama,"August 4, 1961","Honolulu, Hawaii, U.S.",Democratic
 Joe Biden,"November 20, 1942","Scranton, Pennsylvania, U.S.",Democratic
+=======
+>>>>>>> Stashed changes
