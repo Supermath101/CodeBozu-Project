@@ -6,6 +6,20 @@ import re
 def soup_to_infobox_data(keyword):
     return keyword.parent.parent.find(class_="infobox-data").get_text().splitlines()
 
+def unique_information():
+    inFile = open('information.csv','r')
+    outFile = open('unique_information.csv','w')
+    listLines = []
+
+    for line in inFile:
+        if line in listLines:
+            continue
+        else:
+            outFile.write(line)
+            listLines.append(line)
+    outFile.close()
+    inFile.close()
+
 def csv_file(soup):
     df=pd.DataFrame({'birth_name':[birth_full_name(soup)], 'date of birth':[date_of_birth(soup)], 'birth location':[birth_location(soup)], "political party":[political_party(soup)]})
     df.to_csv('information.csv',mode='a', header=False, index=False)

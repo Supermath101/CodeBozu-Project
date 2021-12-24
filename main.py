@@ -1,12 +1,27 @@
+from datetime import date
 from bs4 import BeautifulSoup
 import requests
+import re
+import Bio_Data
 
-html_file=requests.get('https://en.wikipedia.org/wiki/Donald_Trump')
-soup = BeautifulSoup(html_file.text, "lxml")
+from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
+# All the links contains the wikipedia links
+all_the_links=["https://en.wikipedia.org/wiki/Category:21st-century_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:21st-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:20th-century_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:20th-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:19th-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:19th-century_presidents_of_the_United_States"]
+for i in all_the_links:
+    req = Request(i)
+    html_page = urlopen(req)
 
-print("Birthday: " + soup.find(class_="bday").text)
+    soup = BeautifulSoup(html_page, "lxml")
+    whole_page=soup.find(class_="mw-content-ltr")
+    links_f=whole_page.find(class_="mw-content-ltr")
 
-html_tag=soup.find('div',class_='plainlist')
-html_tag1=soup.find('div',style='display:inline;white-space:nowrap;')
-html_tag2=soup.find('div',style='display:inline-block;line-height:normal;margin-top:1px;white-space:normal;')
-print(html_tag2.text)
+    links = []
+    for link in links_f.findAll('a'):
+        getting_link="https://en.wikipedia.org"+link.get('href')
+        links.append(getting_link)
+    for i in links:
+        html_file = requests.get(i)
+        soup=BeautifulSoup(html_file.text,"lxml")
+        Bio_Data.csv_file(soup)
+Bio_Data.unique_information()
