@@ -8,7 +8,7 @@ def soup_to_infobox_data(keyword):
 
 def csv_file(soup):
     df=pd.DataFrame({'birth_name':[birth_full_name(soup)], 'date of birth':[date_of_birth(soup)], 'birth location':[birth_location(soup)], "political party":[political_party(soup)]})
-    df.to_csv('information.csv',mode='a', header=False, index=False)
+    df.to_csv('trials.csv',mode='a', header=False, index=False)
 
 def date_of_birth(soup):
     birth_dates = []
