@@ -1,0 +1,12 @@
+INSIGHTS
+My team and I have decided to find all the presidents and vice presidents from the east coast and west coast. 
+We then found out which coast had more presidents and vice presidents. 
+STEPS
+We have made a list of all the states in the east coast and west coast. 
+We read from our csv file(no duplicate presidents and vice presidents) and got only the birth places of presidents.
+We used nested for loops to get the information.
+Conclusion
+We have found out there are a lot more east coast presidents and vice presidents compared to west coast presidents and vice presidents. 
+We have found that there are 41 east coast presidents and vice presidents whereas there are only 4 west coast presidents and vice presidents.
+Possible Reasoning
+It could be because of the number of states as there are a lot more east coast states than west coast states.
