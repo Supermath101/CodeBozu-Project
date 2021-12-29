@@ -1,6 +1,7 @@
 from datetime import date
 from bs4 import BeautifulSoup
 import requests
+import csv
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 req = Request('https://en.wikipedia.org/wiki/East_Coast_of_the_United_States')
@@ -21,3 +22,21 @@ for i in cities:
 while '' in east_coast_cities:
     east_coast_cities.remove('')
 print(east_coast_cities)
+
+file = open('unique_information.csv')
+csvreader = csv.reader(file)
+birth_area=[]
+all_the_people = []
+people_from_east_coast=0
+for row in csvreader:
+    all_the_people.append(row)
+for birth in all_the_people:
+    for cities in east_coast_cities:
+        births=birth[2]
+        while ',' in births:
+            births=births.replace(",","")
+        if cities in births:
+            print(cities,birth[0])
+            people_from_east_coast+=1
+    # birth_area.append(births[2])
+print(people_from_east_coast)
