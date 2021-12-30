@@ -56,16 +56,15 @@ for paragraph in body_text_info:
 if current_subsection != '' and current_section != '':
     current_section.subsections.append(current_subsection)
     sections.append(current_section)
-
-
-def csv_file():
-    df=pd.DataFrame({'Things':[thing], 'Move':[move], 'Impact':[impact], "Upshot":[upshot]})
-    df.to_csv('politico.csv',mode='a', header=False, index=False)
-
+    
+file = open("politico.csv", "w")
 for section in sections:
     thing = section.name
-    list = []
+    statement = thing
     for subsection in section.subsections:
-        sub = subsection.text
-        #add code to allocate the correct bits to the variables 'move', 'impact' and 'upshot'
-        #csv_file()
+        statement += ", " + ''.join(subsection.text)
+        #problem, commas in the text will mess up the csv file. 
+        #Need to add quotation marks around the large pieces of text 
+        #Also need use pandas to make the csv file instead 
+    file.write(statement + "\n")
+file.close()
