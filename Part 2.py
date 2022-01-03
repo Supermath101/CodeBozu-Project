@@ -52,12 +52,9 @@ for paragraph in body_text_info:
         #stopping text after heading but before 'The move:' from being added
         if current_subsection != '':
             current_subsection.text.append(item)
-
 if current_subsection != '' and current_section != '':
     current_section.subsections.append(current_subsection)
     sections.append(current_section)
-    
-file = open("politico.csv", "w")
 for section in sections:
     thing = section.name
     statement = thing
@@ -66,5 +63,5 @@ for section in sections:
         #problem, commas in the text will mess up the csv file. 
         #Need to add quotation marks around the large pieces of text 
         #Also need use pandas to make the csv file instead 
-    file.write(statement + "\n")
-file.close()
+    df=pd.DataFrame({'everything':[statement]})
+    df.to_csv('politico.csv',mode='a', header=False, index=False)

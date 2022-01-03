@@ -1,7 +1,5 @@
-from datetime import date
 from bs4 import BeautifulSoup
 import requests
-import re
 import Bio_Data
 
 from bs4 import BeautifulSoup
