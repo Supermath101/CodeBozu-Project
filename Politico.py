@@ -10,6 +10,11 @@ soup = BeautifulSoup(html_page, "lxml")
 
 body_text_info = soup.find_all(class_=re.compile("story-text__"))
 
+# there was an error on the politico website which meant it had three 'the moves' - they were supposed to be labelled 'the move', 'the impact' and 'the upshot'
+# the code below - classes were created to categorize the text and place it in the correct subcategory. 
+# this fixed the three 'the moves' issue because although these were all classed as a 'move' belonging to the 'Religion in Schools' heading,
+# when added to a csv this did not matter, as all the sections were simply inserted into a string in the csv file.
+
 class section: 
     def __init__(self, name):
         self.name = name
@@ -73,9 +78,8 @@ for section in sections:
         statement_section = i[0]
         if len(i)>1:
             for j in range(1, len(i)):
-                # grouped paragraphs belonging to one subheading together. 
-                # Had to use the // to replace the newline because otherwise it would not work in the csv.
-                #the new line character shouldnt be a problem if the code worked as intended
+                # // used to represent new paragraph.
+                # this section adds paragraphs under one subheading (e.g. the move) together
                 statement_section += "//" + i[j]
         construction.append('"%s"' % statement_section)
 
@@ -89,7 +93,3 @@ file = open('politico.csv', 'w')
 for item in composite_list:
     file.write(item)
 file.close()
-
-
-#df=pd.DataFrame(composite_list,columns=["Things","Move","Impact","Upshot"])
-#df.to_csv('politico.csv',mode='w',index=False)
