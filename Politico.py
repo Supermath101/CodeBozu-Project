@@ -1,6 +1,7 @@
+from ssl import ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE
 from bs4 import BeautifulSoup
 import pandas as pd
-from urllib.request import Request, urlopen
+from urllib.request import HTTPDefaultErrorHandler, Request, urlopen
 import re
 
 req = Request("https://www.politico.com/news/magazine/2021/01/18/trump-presidency-administration-biggest-impact-policy-analysis-451479")
@@ -76,8 +77,11 @@ for section in sections:
         statement_section = i[0]
         if len(i)>1:
             for j in range(1, len(i)):
-                statement_section += "\n" + i[j]
-        construction.append(statement_section)
+                # grouped paragraphs belonging to one subheading together. 
+                # Had to use the // to replace the newline because otherwise it would not work in the csv.
+                #the new line character shouldnt be a problem if the code worked as intended
+                statement_section += "//" + i[j]
+        construction.append('"%s"' % statement_section)
 
     statement = construction[0]
     for item in range(1,len(construction)):
