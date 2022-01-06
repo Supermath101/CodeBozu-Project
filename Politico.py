@@ -59,10 +59,6 @@ if current_subsection != '' and current_section != '':
     sections.append(current_section)
 
 
-###################remove writers name#########################################################################
-###################################################################################################################
-
-
 composite_list = []
 for section in sections:
     lists = [[section.name]]
