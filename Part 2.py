@@ -62,10 +62,6 @@ for section in sections:
     for subsection in section.subsections:
         for f in subsection.text:
             lists.append(f)
-        # print(subsection.text)
-        # lists.append(subsection.text)
-    # print(lists)
     composite_list=[lists[x:x+4]for x in range(0,len(lists),4)]
-    # print(composite_list)
 df=pd.DataFrame(composite_list,columns=["Things","Move","Impact","Upshot"])
 df.to_csv('politico.csv',mode='a',index=False)
