@@ -8,7 +8,7 @@ html_page = urlopen(req)
 soup = BeautifulSoup(html_page, "lxml")
 
 body_text_info = soup.find_all(class_=re.compile("story-text__"))
-lists=[]
+
 class section: 
     def __init__(self, name):
         self.name = name
@@ -52,16 +52,44 @@ for paragraph in body_text_info:
         #stopping text after heading but before 'The move:' from being added
         if current_subsection != '':
             current_subsection.text.append(item)
+
 if current_subsection != '' and current_section != '':
     current_section.subsections.append(current_subsection)
     sections.append(current_section)
+
+
+###################remove writers name#########################################################################
+###################################################################################################################
+
+
+composite_list = []
 for section in sections:
-    thing = section.name
-    statement = thing
-    lists.append(statement)
-    for subsection in section.subsections:
-        for f in subsection.text:
-            lists.append(f)
-    composite_list=[lists[x:x+4]for x in range(0,len(lists),4)]
-df=pd.DataFrame(composite_list,columns=["Things","Move","Impact","Upshot"])
-df.to_csv('politico.csv',mode='a',index=False)
+    lists = [[section.name]]
+    bit = section.subsections
+    length = len(bit)
+
+    for subsection in range (0,length):
+        lists.append(bit[subsection].text)
+
+    construction = []
+    for i in lists:
+        statement_section = i[0]
+        if len(i)>1:
+            for j in range(1, len(i)):
+                statement_section += "\n" + i[j]
+        construction.append(statement_section)
+
+    statement = construction[0]
+    for item in range(1,len(construction)):
+        statement += ", " + construction[item]
+    statement += "\n"
+    composite_list.append(statement)
+
+file = open('politico.csv', 'w')
+for item in composite_list:
+    file.write(item)
+file.close()
+
+
+#df=pd.DataFrame(composite_list,columns=["Things","Move","Impact","Upshot"])
+#df.to_csv('politico.csv',mode='w',index=False)
