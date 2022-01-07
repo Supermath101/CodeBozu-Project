@@ -1,5 +1,4 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import csv
 
 #finding the sentiment scores for a paragraph
 def sentiment_scores(paragraph):
