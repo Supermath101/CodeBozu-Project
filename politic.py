@@ -1,6 +1,7 @@
+from ssl import ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE
 from bs4 import BeautifulSoup
 import pandas as pd
-from urllib.request import Request, urlopen
+from urllib.request import HTTPDefaultErrorHandler, Request, urlopen
 import re
 
 req = Request("https://www.politico.com/news/magazine/2021/01/18/trump-presidency-administration-biggest-impact-policy-analysis-451479")
@@ -8,6 +9,11 @@ html_page = urlopen(req)
 soup = BeautifulSoup(html_page, "lxml")
 
 body_text_info = soup.find_all(class_=re.compile("story-text__"))
+
+# there was an error on the politico website which meant it had three 'the moves' - they were supposed to be labelled 'the move', 'the impact' and 'the upshot'
+# the code below - classes were created to categorize the text and place it in the correct subcategory. 
+# this fixed the three 'the moves' issue because although these were all classed as a 'move' belonging to the 'Religion in Schools' heading,
+# when added to a csv this did not matter, as all the sections were simply inserted into a string in the csv file.
 
 class section: 
     def __init__(self, name):
@@ -58,10 +64,6 @@ if current_subsection != '' and current_section != '':
     sections.append(current_section)
 
 
-###################remove writers name#########################################################################
-###################################################################################################################
-
-
 composite_list = []
 for section in sections:
     lists = [[section.name]]
@@ -76,8 +78,10 @@ for section in sections:
         statement_section = i[0]
         if len(i)>1:
             for j in range(1, len(i)):
-                statement_section += "\n" + i[j]
-        construction.append(statement_section)
+                # // used to represent new paragraph.
+                # this section adds paragraphs under one subheading (e.g. the move) together
+                statement_section += "//" + i[j]
+        construction.append('"%s"' % statement_section)
 
     statement = construction[0]
     for item in range(1,len(construction)):
@@ -85,6 +89,7 @@ for section in sections:
     # statement += "\n"
     composite_list.append(statement)
 
+<<<<<<< HEAD
 # file = open('politico.csv', 'w')
 # for item in composite_list:
 #     print(item)
@@ -96,3 +101,9 @@ for section in sections:
 for item in composite_list:
     df=pd.DataFrame({'thing':[item]})
     df.to_csv('politico.csv',mode='a',index=False,header=False)
+=======
+file = open('politico.csv', 'w')
+for item in composite_list:
+    file.write(item)
+file.close()
+>>>>>>> 001a21060d6fc2b1b6f9bfd57687adf6a45cf022
