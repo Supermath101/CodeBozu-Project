@@ -89,6 +89,7 @@ for section in sections:
     statement += "\n"
     composite_list.append(statement)
 
+#creating the politico csv file
 file = open('politico.csv', 'w')
 for item in composite_list:
     file.write(item)
