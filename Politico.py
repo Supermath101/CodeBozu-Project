@@ -85,25 +85,10 @@ for section in sections:
     statement = construction[0]
     for item in range(1,len(construction)):
         statement += ", " + construction[item]
-    # statement += "\n"
+    statement += "\n"
     composite_list.append(statement)
-
-#creating the politico csv file
-
-# file = open('politico.csv', 'w')
-# for item in composite_list:
-#     print(item)
-#     file.write(item)
-# file.close()
-
-
-# df=pd.DataFrame(composite_list,columns=["Things","Move","Impact","Upshot"])
-for item in composite_list:
-    df=pd.DataFrame({'thing':[item]})
-    df.to_csv('politico.csv',mode='a',index=False,header=False)
 
 file = open('politico.csv', 'w')
 for item in composite_list:
     file.write(item)
 file.close()
-
