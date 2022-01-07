@@ -12,40 +12,53 @@ def sentiment_scores(paragraph):
     percentage_pos = str(round(sentiment_dict['pos']*100,2))+ "%"
     return percentage_pos
 
+def writing_to_file(title, body_text):
+    total_positivity = 0
+    count = 0
+    if body_text != []:
+        body = body_text[0].text
+        for i in range(0, len(body_text)):
+            text = body_text[i].text
+            body += "//" + text
+        title_article = '"%s"'% title.text
+        text_article = '"%s"'% body
+        positivity_score = sentiment_scores(text_article)
+        statement = title_article + ", " + text_article  + ", " + positivity_score + "\n"
+        file.write(statement)
+        total_positivity += float(positivity_score.strip("%")) 
+        count += 1
+    return(total_positivity, count)
 
 link_page ="https://www.bbc.com/news/topics/cp7r8vgl2lgt/donald-trump"
 html_page = urlopen(link_page)
 soup = bsoup(html_page, "lxml")
 links_on_page = soup.findAll("a", class_ = "qa-heading-link lx-stream-post__header-link")
+video_links = soup.findAll("div", class_="ssrcss-1ocoo3l-Wrap e42f8511")
+
+#check that all links are being scraped
+
 
 with open("bbc.csv", 'w', encoding='utf-8') as file:
-    total_positivity = 0
-    count = 0
     for link in links_on_page:
         getting_link = "https://www.bbc.com" + link.get('href')
         html_page = requests.get(getting_link)
         soup = bsoup(html_page.text, "lxml")
         title = soup.find("h1", class_="ssrcss-gcq6xq-StyledHeading e1fj1fc10")
         body_text = soup.findAll("div",class_="ssrcss-uf6wea-RichTextComponentWrapper e1xue1i85")
-        if body_text != []:
-            body = body_text[0].text
-            for i in range(0, len(body_text)):
-                text = body_text[i].text
-                body += "//" + text
-            title_article = '"%s"'% title.text
-            text_article = '"%s"'% body
-            positivity_score = sentiment_scores(text_article)
-            statement = title_article + ", " + text_article  + ", " + positivity_score + "\n"
-            file.write(statement)
-            total_positivity += float(positivity_score.strip("%"))
-            count += 1
-    file.close()
+        regular_details = writing_to_file(title, body_text)
+    for vid_link in video_links:
+        getting_link = "https://www.bbc.com" + link.get('href')
+        html_page = requests.get(getting_link)
+        soup = bsoup(html_page.text, "lxml")
+        title = soup.find("h1", class_="ssrcss-1qr3f1s-StyledHeading e1fj1fc10")
+        body_text = soup.find("p", class_="ssrcss-1q0x1qg-Paragraph eq5iqo00")
+        video_details = writing_to_file(title, body_text)
+file.close()
 
 
 # mean used to calculate the average positivity score 
+total_positivity = float(regular_details[0]) + float(video_details[0])
+count = int(regular_details[1]) + int(video_details[1])
+
 average = round(total_positivity/count,2) #float format
 average_string = str(average) + "%" #string format
-
-
-
-#check that all links are being scraped
