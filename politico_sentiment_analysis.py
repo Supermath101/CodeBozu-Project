@@ -1,5 +1,4 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import csv
 
 #finding the sentiment scores for a paragraph
 def sentiment_scores(paragraph):
@@ -66,5 +65,3 @@ final_av = (float(averages[0]) + float(averages[1]) + float(averages[2]))/3
 final_average = round(final_av,2) #float version of the favourability with respect to Politico
 final_average_string = str(final_average) + "%" #string version of the favourability
 file_pos.close()
-
-print(final_average_string)
