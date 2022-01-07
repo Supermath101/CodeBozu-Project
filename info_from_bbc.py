@@ -10,8 +10,7 @@ def sentiment_scores(paragraph):
     intensity = SentimentIntensityAnalyzer()
     sentiment_dict = intensity.polarity_scores(paragraph)
     percentage_pos = str(round(sentiment_dict['pos']*100,2))+ "%"
-    percentage_neg = str(round(sentiment_dict['neg']*100,2))+ "%"
-    return percentage_pos, percentage_neg
+    return percentage_pos
 
 
 link_page ="https://www.bbc.com/news/topics/cp7r8vgl2lgt/donald-trump"
@@ -20,6 +19,8 @@ soup = bsoup(html_page, "lxml")
 links_on_page = soup.findAll("a", class_ = "qa-heading-link lx-stream-post__header-link")
 
 with open("bbc.csv", 'w', encoding='utf-8') as file:
+    total_positivity = 0
+    count = 0
     for link in links_on_page:
         getting_link = "https://www.bbc.com" + link.get('href')
         html_page = requests.get(getting_link)
@@ -33,44 +34,18 @@ with open("bbc.csv", 'w', encoding='utf-8') as file:
                 body += "//" + text
             title_article = '"%s"'% title.text
             text_article = '"%s"'% body
-            paragraph_sentiment = sentiment_scores(text_article)
-            statement = title_article + ", " + text_article + paragraph_sentiment[0]+"%" +", " + "\n"
+            positivity_score = sentiment_scores(text_article)
+            statement = title_article + ", " + text_article  + ", " + positivity_score + "\n"
             file.write(statement)
-            
+            total_positivity += float(positivity_score.strip("%"))
+            count += 1
     file.close()
 
 
+# mean used to calculate the average positivity score 
+average = round(total_positivity/count,2) #float format
+average_string = str(average) + "%" #string format
 
 
 
-'''
-#finding the average from the percentage files
-def average(file):
-    added_move = 0
-    added_upshot = 0
-    added_impact = 0
-    count = 0
-    for bit in file:
-        separate = bit.split(", ")
-        cleaned_move = separate[1].strip("\n").strip("%")
-        cleaned_impact = separate[2].strip("\n").strip("%")
-        cleaned_upshot = separate[3].strip("\n").strip("%")
-        added_move += float(cleaned_move)
-        added_impact += float(cleaned_impact)
-        added_upshot += float(cleaned_upshot)
-        count += 1
-    averages = [round(added_move/count,2), round(added_impact/count,2), round(added_upshot/count,2)]
-    return averages
-
-file_pos = open("positive_percentage.csv", "r")
-averages = average(file_pos)
-# used the mean to find the average because there were no extreme pieces of data to skew the results
-# and the mean is more inclusive than the median
-final_av = (float(averages[0]) + float(averages[1]) + float(averages[2]))/3
-final_average = round(final_av,2) #float version of the favourability with respect to Politico
-final_average_string = str(final_average) + "%" #string version of the favourability
-file_pos.close()
-
-print(final_average_string)
-
-'''
+#check that all links are being scraped
