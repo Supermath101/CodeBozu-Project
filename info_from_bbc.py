@@ -40,7 +40,6 @@ files = ["bbc_trump.csv", "bbc_obama.csv", "bbc_biden.csv", "bbc_bush.csv"]
 
 
 for link_page in range(0, len(links)):
-    print(links[link_page])
     html_page = urlopen(links[link_page])
     soup = bsoup(html_page, "lxml")
     links_in_page = soup.findAll("a", class_="qa-heading-link lx-stream-post__header-link")
