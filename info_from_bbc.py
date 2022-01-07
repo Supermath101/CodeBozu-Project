@@ -12,14 +12,18 @@ def sentiment_scores(paragraph):
     percentage_pos = str(round(sentiment_dict['pos']*100,2))+ "%"
     return percentage_pos
 
+
 def writing_to_file(title, body_text):
     total_positivity = 0
     count = 0
     if body_text != []:
-        body = body_text[0].text
-        for i in range(0, len(body_text)):
-            text = body_text[i].text
-            body += "//" + text
+        if len(body_text) > 1:
+            body = body_text[0].text
+            for i in range(0, len(body_text)):
+                text = body_text[i].text
+                body += "//" + text
+        else:
+            body = body_text[0].text
         title_article = '"%s"'% title.text
         text_article = '"%s"'% body
         positivity_score = sentiment_scores(text_article)
@@ -32,27 +36,22 @@ def writing_to_file(title, body_text):
 link_page ="https://www.bbc.com/news/topics/cp7r8vgl2lgt/donald-trump"
 html_page = urlopen(link_page)
 soup = bsoup(html_page, "lxml")
-links_on_page = soup.findAll("a", class_ = "qa-heading-link lx-stream-post__header-link")
-video_links = soup.findAll("div", class_="ssrcss-1ocoo3l-Wrap e42f8511")
-
-#check that all links are being scraped
+links = soup.findAll("a", class_="qa-heading-link lx-stream-post__header-link")
 
 
 with open("bbc.csv", 'w', encoding='utf-8') as file:
-    for link in links_on_page:
+    for link in links:
         getting_link = "https://www.bbc.com" + link.get('href')
         html_page = requests.get(getting_link)
         soup = bsoup(html_page.text, "lxml")
-        title = soup.find("h1", class_="ssrcss-gcq6xq-StyledHeading e1fj1fc10")
-        body_text = soup.findAll("div",class_="ssrcss-uf6wea-RichTextComponentWrapper e1xue1i85")
-        regular_details = writing_to_file(title, body_text)
-    for vid_link in video_links:
-        getting_link = "https://www.bbc.com" + link.get('href')
-        html_page = requests.get(getting_link)
-        soup = bsoup(html_page.text, "lxml")
-        title = soup.find("h1", class_="ssrcss-1qr3f1s-StyledHeading e1fj1fc10")
-        body_text = soup.find("p", class_="ssrcss-1q0x1qg-Paragraph eq5iqo00")
-        video_details = writing_to_file(title, body_text)
+        title_vid = soup.find("h1", class_="ssrcss-1qr3f1s-StyledHeading e1fj1fc10")
+        body_text_vid = soup.findAll("div", class_="ssrcss-1up5zkp-StyledSummary elwf6ac3")
+        title_reg = soup.find("h1", class_="ssrcss-gcq6xq-StyledHeading e1fj1fc10")
+        body_text_reg = soup.findAll("div",class_="ssrcss-uf6wea-RichTextComponentWrapper e1xue1i85")    
+        if title_reg != None and body_text_reg != None:
+            regular_details = writing_to_file(title_reg, body_text_reg)
+        elif title_vid != None and body_text_vid != None:
+            video_details = writing_to_file(title_vid, body_text_vid)          
 file.close()
 
 
