@@ -91,11 +91,5 @@ for section in sections:
 file = open('politico.csv', 'w')
 for item in composite_list:
     file.write(item)
-<<<<<<< HEAD:trump_extract.py
-<<<<<<< HEAD:trump_extract.py
     # file.write('\n')
-=======
->>>>>>> f3637c01d080c5421e088cc894fe15a7f84a44d9:Politico.py
-=======
->>>>>>> f3637c01d080c5421e088cc894fe15a7f84a44d9:Politico.py
 file.close()

@@ -20,12 +20,6 @@ for link in links_on_page:
 getting_link = "https://www.bbc.com/news" + links_on_page[0].get('href')
 html_page = requests.get(getting_link)
 soup = bsoup(html_page.text, "lxml")
-=======
-
->>>>>>> f3637c01d080c5421e088cc894fe15a7f84a44d9:BBC.py
-=======
-
->>>>>>> f3637c01d080c5421e088cc894fe15a7f84a44d9:BBC.py
 file = open("BBC.csv", "w")
 for link in links_on_page:
     getting_link = "https://www.bbc.com" + link.get('href')
