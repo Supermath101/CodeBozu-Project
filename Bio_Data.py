@@ -23,7 +23,7 @@ def unique_information():
 def csv_file(soup):
     df=pd.DataFrame({'birth_name':[birth_full_name(soup)], 'date of birth':[date_of_birth(soup)], 'birth location':[birth_location(soup)], "political party":[political_party(soup)]})
     df.to_csv('information.csv',mode='a', header=False, index=False)
-
+# .
 def date_of_birth(soup):
     birth_dates = []
     for maybe_birth_container in soup.find_all(string="Born"):
