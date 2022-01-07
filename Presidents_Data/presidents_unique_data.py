@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import Bio_Data
+import Presidents_Data.Bio_Data as Bio_Data
 
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
