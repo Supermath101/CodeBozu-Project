@@ -36,7 +36,7 @@ def writing_to_file(title, body_text):
 
 links = ["https://www.bbc.com/news/topics/cp7r8vgl2lgt/donald-trump", "https://www.bbc.com/news/topics/czyymgqmn6dt/joe-biden",
  "https://www.bbc.com/news/topics/cvenzmgywl4t/barack-obama", "https://www.bbc.com/news/topics/cv0y3dkx5eet/george-w-bush"]
-files = ["bbc_trump.csv", "bbc_obama.csv", "bbc_biden.csv", "bbc_bush.csv"]
+files = ["bbc_trump.csv","bbc_biden.csv","bbc_obama.csv", "bbc_bush.csv"]
 
 
 for link_page in range(0, len(links)):
