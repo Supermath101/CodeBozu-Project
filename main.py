@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import Bio_Data
-
-from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 # All the links contains the wikipedia links
 all_the_links=["https://en.wikipedia.org/wiki/Category:21st-century_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:21st-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:20th-century_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:20th-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:19th-century_vice_presidents_of_the_United_States","https://en.wikipedia.org/wiki/Category:19th-century_presidents_of_the_United_States"]
