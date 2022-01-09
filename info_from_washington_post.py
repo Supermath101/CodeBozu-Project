@@ -28,9 +28,11 @@ for i in all_the_links:
     html_page = urlopen(req)
     soup = BeautifulSoup(html_page, "lxml")
     g=soup.find('div',class_="article-body")
-    j=i.find_all('div', attrs={'class': None})
-    print(j)
-#     f=g.find_all('div',class_="")
+    j=g.find_all('div', attrs={'class': None})
+    for i in j:
+        print(i.text)
+        print('--------------------------------')
+    # f=g.find_all('div',class_="")
 # for i in f:
 #     print(i)
 #     print(i.find('div', attrs={'class': None}))
