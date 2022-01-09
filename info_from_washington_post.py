@@ -22,18 +22,27 @@ all_the_links = []
 for x in mylist:
     if x not in all_the_links:
         all_the_links.append(x)
-all_the_links=["https://www.washingtonpost.com/politics/trump-executive-orders/2020/10/29/c2329162-17bd-11eb-aeec-b93bcc29a01b_story.html"]
-for i in all_the_links:
-    req = Request(i)
-    html_page = urlopen(req)
-    soup = BeautifulSoup(html_page, "lxml")
-    g=soup.find('div',class_="article-body")
-    j=g.find_all('div', attrs={'class': None})
-    for i in j:
-        print(i.text)
-        print('--------------------------------')
-    # f=g.find_all('div',class_="")
-# for i in f:
-#     print(i)
-#     print(i.find('div', attrs={'class': None}))
-#     print('---------------------------------------')
+print(all_the_links)
+with open('washington_post_on_trump', 'w', encoding='utf-8') as file:
+    for i in all_the_links:
+        req = Request(i)
+        html_page = urlopen(req)
+        soup = BeautifulSoup(html_page, "lxml")
+        g=soup.find('div',class_="article-body")
+        j=g.find_all('div', attrs={'class': None})
+        for i in j:
+            l=i.text
+            print(l)
+            print(type(l))
+            file.write(str(l))
+file.close()
+
+"""
+with open('washington_post_on_trump', 'w', encoding='utf-8') as file:
+    for i in all_the_links:
+        req = Request(i)
+        html_page = urlopen(req)
+        soup = BeautifulSoup(html_page, "lxml")
+        g=soup.find('div',class_="article-body")
+        j=g.find_all('div', attrs={'class': None})
+        """
