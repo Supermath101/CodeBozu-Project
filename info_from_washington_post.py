@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 from urllib.request import Request, urlopen
-from gazpacho import soup
+from gazpacho import Soup
 req = Request("https://www.washingtonpost.com/45th-president/")
 html_page = urlopen(req)
 soup = BeautifulSoup(html_page, "lxml")
@@ -28,5 +28,10 @@ for i in all_the_links:
     html_page = urlopen(req)
     soup = BeautifulSoup(html_page, "lxml")
     g=soup.find('div',class_="article-body")
-    f=g.find_all('div',class_="")
-    print [item["data-qa"] for item in bs.find_all() if "data-qa" in item.attrs]
+    j=i.find_all('div', attrs={'class': None})
+    print(j)
+#     f=g.find_all('div',class_="")
+# for i in f:
+#     print(i)
+#     print(i.find('div', attrs={'class': None}))
+#     print('---------------------------------------')
