@@ -38,6 +38,9 @@ for link_page in range(0, len(links)):
             elif title_vid != None and body_text_vid != None and body_text_vid != []:
                 positivity += writing_to_file(title_vid, body_text_vid, file)
                 count += 1
+
+            #clean "The bbc is not responsible..."
+            #check the pictures file for Bush
             elif title_pictures_story != None and body_text_pictures_story != None and body_text_pictures_story != []:
                 positivity += writing_to_file(title_pictures_story, body_text_pictures_story, file)
                 count += 1
@@ -48,7 +51,3 @@ for link_page in range(0, len(links)):
         print(average_string)     
 
     file.close()
-
-
-    #clean "The bbc is not responsible..."
-    #check the pictures file for Bush
