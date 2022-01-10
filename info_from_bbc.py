@@ -8,10 +8,16 @@ from sentiment_functions import writing_to_file
 
 links = ["https://www.bbc.com/news/topics/cp7r8vgl2lgt/donald-trump", "https://www.bbc.com/news/topics/czyymgqmn6dt/joe-biden",
  "https://www.bbc.com/news/topics/cvenzmgywl4t/barack-obama", "https://www.bbc.com/news/topics/cv0y3dkx5eet/george-w-bush",
- "https://www.bbc.com/news/topics/c4n0j9r0n8wt/bill-clinton", "https://www.bbc.com/news/topics/c5rzdrw9r58t/ronald-reagan"]
-files = ["bbc_trump.csv","bbc_biden.csv","bbc_obama.csv", "bbc_w_bush.csv", "bbc_clinton.csv", "bbc_reagan.csv"]
+ "https://www.bbc.com/news/topics/c4n0j9r0n8wt/bill-clinton"]
+files = ["bbc_trump.csv","bbc_biden.csv","bbc_obama.csv", "bbc_w_bush.csv", "bbc_clinton.csv"]
 
+def calculate_average(positivity, count):
+    average = round(positivity/count,2) #float format
+    average_string = str(average) + "%" #string format
+    averages.append(average_string)
+    return averages
 
+averages = []
 for link_page in range(0, len(links)):
     html_page = urlopen(links[link_page])
     soup = bsoup(html_page, "lxml")
@@ -46,8 +52,14 @@ for link_page in range(0, len(links)):
                 count += 1
 
         # mean used to calculate the average positivity score for the current link page
-        average = round(positivity/count,2) #float format
-        average_string = str(average) + "%" #string format
-        print(average_string)     
+        averages = calculate_average(positivity, count)
 
     file.close()
+
+
+presidents = ["Donald Trump", "Joe Biden", "Barack Obama", "George W. Bush", "Bill Clinton"]
+file = open("averages_bbc.txt", "w")
+for i in range (0, len(averages)):
+    file.write(presidents[i] + ", " + averages[i] + "\n")
+file.close()
+    

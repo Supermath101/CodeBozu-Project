@@ -8,10 +8,16 @@ import re
 
 links = ["https://www.forbes.com/search/?q=trump&sh=5b7d3f4c279f", "https://www.forbes.com/search/?q=biden&sh=64e1c236279f"
 "https://www.forbes.com/search/?q=obama&sh=64e1c236279f", "https://www.forbes.com/search/?q=bush&sh=64e1c236279f",
-"https://www.forbes.com/search/?q=bill%20clinton&sh=64e1c236279f", "https://www.forbes.com/search/?q=reagan&sh=64e1c236279f"]
-files = ["forbes_trump.csv", "forbes_biden.csv", "forbes_obama.csv", "forbes_w_bush.csv", "forbes_clinton.csv", "forbes_reagan.csv"]
+"https://www.forbes.com/search/?q=bill%20clinton&sh=64e1c236279f"]
+files = ["forbes_trump.csv", "forbes_biden.csv", "forbes_obama.csv", "forbes_w_bush.csv", "forbes_clinton.csv"]
 
+def calculate_average(positivity, count):
+    average = round(positivity/count,2) #float format
+    average_string = str(average) + "%" #string format
+    averages.append(average_string)
+    return averages
 
+averages = []
 for link_page in range(0, len(links)):
     positivity = 0
     count = 0
@@ -31,12 +37,16 @@ for link_page in range(0, len(links)):
                     count += 1
         # mean used to calculate the average positivity score for the current link page
         if count != 0:
-            average = round(positivity/count,2) #float format
-            average_string = str(average) + "%" #string format
-            print(average_string)
+            averages = calculate_average(positivity, count)
         else:
-            print(positivity, file)
-
+            print(positivity, file) #check
     file.close()
+
+presidents = ["Donald Trump", "Joe Biden", "Barack Obama", "George W. Bush", "Bill Clinton"]
+file = open("averages_forbes.txt", "w")
+for i in range (0, len(averages)):
+    file.write(presidents[i] + ", " + averages[i] + "\n")
+file.close()
+    
 
 #cleaning ending "forbes" check if files are clean

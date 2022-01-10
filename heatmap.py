@@ -5,20 +5,23 @@ from pylab import savefig
 
 
 array = []
-file = open("trials.csv", "r")
+file = open("heatmap_data.csv", "r")
 for line in file:
     separated = line.split(", ")
-    list = [float(separated[1]), float(separated[2]), float(separated[3]), float(separated[4]), float(separated[5]), float(separated[6].strip("\n"))]
+    bbc = separated[1].strip("%")
+    forbes = separated[2].strip("\n")
+    list = [float(bbc), float(forbes.strip("%"))]
     array.append(list)
 file.close()
 
 
 df_cm = pd.DataFrame(array)
-# yticklabels=["Trump", "Biden"], xticklabels=["Website 1", "Website 2", "Websit
 
-
-svm = sn.heatmap(df_cm, annot = True, cmap = 'YlGnBu', yticklabels = ["Trump", "Biden", "Obama", "Bush"], xticklabels = ["BBC", "Washington Post", "Website3", "Website4", "Website5"])
-svm.title("Favourability of Politicians")
+sn.set(font_scale = 1.0)
+svm = sn.heatmap(df_cm, annot = True, cmap = 'YlGnBu', yticklabels = ["Donald Trump", "Joe Biden", "Barack Obama", "George W. Bush", "Bill Clinton"], xticklabels = ["BBC", "Forbes"])
+plt.rcParams["figure.autolayout"] = True
+plt.tight_layout()
+plt.title("Favourability of Politicians")
 
 figure = svm.get_figure()
-figure.savefig('Favourability of Politicians.png', dpi = 400)
+figure.savefig('Favourability of Politicians.png', dpi = 200)
