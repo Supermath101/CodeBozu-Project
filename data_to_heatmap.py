@@ -1,4 +1,4 @@
-files = ["averages_bbc.txt", "averages_forbes.txt"]
+files = ["averages_bbc.txt", "averages_forbes.txt", "averages_huff_post.txt"]
 array_name = []
 array_data = []
 
@@ -14,5 +14,9 @@ for text_file in range (0, len(files)):
 
 file = open("heatmap_data.csv", "w")
 for i in range(0,5):
-    file.write(array_name[i] + ", " + array_data[0][i] + ", " + array_data[1][i]+ "\n")
+    statement = array_name[i]
+    for j in range(0,len(files)):
+        statement += ", " + array_data[j][i]
+    statement += "\n"
+    file.write(statement)
 file.close()
