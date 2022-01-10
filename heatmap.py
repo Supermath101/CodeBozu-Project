@@ -17,11 +17,11 @@ file.close()
 
 df_cm = pd.DataFrame(array)
 
-sn.set(font_scale = 1.0)
+sn.set(font_scale = 1.8)
 svm = sn.heatmap(df_cm, annot = True, cmap = 'YlGnBu', yticklabels = ["Donald Trump", "Joe Biden", "Barack Obama", "George W. Bush", "Bill Clinton"], xticklabels = ["BBC", "Forbes"])
 plt.rcParams["figure.autolayout"] = True
 plt.tight_layout()
 plt.title("Favourability of Politicians")
 
 figure = svm.get_figure()
-figure.savefig('Favourability of Politicians.png', dpi = 200)
+figure.savefig('Favourability of Politicians.png', dpi = 600)
