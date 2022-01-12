@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from urllib.request import Request, urlopen
 from gazpacho import Soup
-req = Request("https://www.foxnews.com/category/person/george-w-bush")
+req = Request("https://www.foxnews.com/category/person/joe-biden")
 html_page = urlopen(req)
 soup = BeautifulSoup(html_page, "lxml")
 mylist=[]
@@ -28,7 +28,7 @@ for i in mylist1:
     mylist2.append(f)
 
 # Bill Clinton
-mylist2=["https://www.foxnews.com/politics/clinton-says-he-is-on-the-road-to-recovery-in-a-video-update-following-his-hospital-release","https://www.foxnews.com/politics/bill-clinton-released-hospital-southern-california","https://www.foxnews.com/politics/bill-clinton-to-remain-in-hospital-for-antibiotics-expected-to-be-released-tomorrow","https://www.foxnews.com/politics/bill-clinton-hospitalized-with-an-infection","https://www.foxnews.com/politics/bill-clinton-back-in-new-york-after-brief-hospital-stay-in-california"]
+# mylist2=["https://www.foxnews.com/politics/clinton-says-he-is-on-the-road-to-recovery-in-a-video-update-following-his-hospital-release","https://www.foxnews.com/politics/bill-clinton-released-hospital-southern-california","https://www.foxnews.com/politics/bill-clinton-to-remain-in-hospital-for-antibiotics-expected-to-be-released-tomorrow","https://www.foxnews.com/politics/bill-clinton-hospitalized-with-an-infection","https://www.foxnews.com/politics/bill-clinton-back-in-new-york-after-brief-hospital-stay-in-california"]
 
 with open('fox_news_on_clinton.csv', 'w', encoding='utf-8') as file:
     for i in mylist2:

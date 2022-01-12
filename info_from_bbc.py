@@ -52,6 +52,7 @@ for link_page in range(0, len(links)):
                 count += 1
 
         # mean used to calculate the average positivity score for the current link page
+        print(positivity,count)
         averages = calculate_average(positivity, count)
 
     file.close()
