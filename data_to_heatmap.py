@@ -2,21 +2,20 @@ from csv import reader
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 average=0
 num=0
-presidents=["fox_news_on_clinton.csv"]
-for i in presidents:
-    with open(i,'r')as read_obj:
-        csv_reader=reader(read_obj)
-        for row in csv_reader:
-            num+=1
-            for i in row:
-                sid_obj = SentimentIntensityAnalyzer()
-                sentiment_dict = sid_obj.polarity_scores(i)
-                average+=(sentiment_dict['pos']*10)
-        f=round(average/10,2)
-        with open("fox_news.txt", "a") as file:
-            file.write('\n')
-            file.write('Bill Clinton'+str(f)+'%')
-        file.close()
+with open("washington_post_on_trump.csv",'r')as read_obj:
+    csv_reader=reader(read_obj)
+    print(csv_reader)
+    for row in csv_reader:
+        num+=1
+        for i in row:
+            sid_obj = SentimentIntensityAnalyzer()
+            sentiment_dict = sid_obj.polarity_scores(i)
+            average+=(sentiment_dict['pos']*10)
+    f=round(average/10,2)
+    with open("washington_post.txt", "a") as file:
+        file.write('\n')
+        file.write('Donald Trump'+str(f)+'%')
+    file.close()
 
 
 
