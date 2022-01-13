@@ -7,6 +7,7 @@ with open("washington_post_on_trump.csv",'r')as read_obj:
     print(csv_reader)
     for row in csv_reader:
         num+=1
+        print(num)
         for i in row:
             sid_obj = SentimentIntensityAnalyzer()
             sentiment_dict = sid_obj.polarity_scores(i)

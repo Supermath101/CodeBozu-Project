@@ -12,7 +12,6 @@ for line in file:
     forbes = separated[2].strip("\n")
     fox_news=separated[3].strip('%')
     huff_post=separated[4]
-    print(fox_news)
     list = [float(bbc), float(forbes.strip("%")),float(fox_news.strip('%')),float(huff_post)]
     array.append(list)
 print(array)
