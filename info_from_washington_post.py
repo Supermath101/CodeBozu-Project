@@ -31,8 +31,8 @@ print(len(all_the_links))
 #George w bush
 # all_the_links=["https://www.washingtonpost.com/national-security/2022/01/03/navy-seals-vaccine-mandate-lawsuit/","https://www.washingtonpost.com/news/reliable-source/wp/2017/07/14/presidents-bush-and-clinton-appear-to-offer-trump-some-advice-without-mentioning-his-name/","https://www.washingtonpost.com/news/the-fix/wp/2016/07/19/george-w-bush-is-suddenly-as-popular-as-bill-clinton/"]
 # Bill Clinton
-all_the_links=["https://www.washingtonpost.com/politics/2021/10/14/former-president-bill-clinton-hospitalized/","https://www.washingtonpost.com/politics/2022/01/06/americas-living-presidents-save-one-warn-about-danger-our-democracy-faces/"]
-with open('washington_post_on_clinton.csv', 'w', encoding='utf-8') as file:
+# all_the_links=["https://www.washingtonpost.com/politics/2021/10/14/former-president-bill-clinton-hospitalized/","https://www.washingtonpost.com/politics/2022/01/06/americas-living-presidents-save-one-warn-about-danger-our-democracy-faces/"]
+with open('washington_post_on_trump.csv', 'w', encoding='utf-8') as file:
     for i in all_the_links:
         req = Request(i)
         html_page = urlopen(req)

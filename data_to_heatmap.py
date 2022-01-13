@@ -2,9 +2,11 @@ from csv import reader
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 average=0
 num=0
-with open("washington_post_on_trump.csv",'r')as read_obj:
-    csv_reader=reader(read_obj)
-    print(csv_reader)
+lines=[]
+with open("washington_post_on_trump.csv")as file:
+    csv_reader=reader(file)
+    lines=file.readlines()
+    print(lines)
     for row in csv_reader:
         num+=1
         print(num)
@@ -17,6 +19,7 @@ with open("washington_post_on_trump.csv",'r')as read_obj:
         file.write('\n')
         file.write('Donald Trump'+str(f)+'%')
     file.close()
+file.close()
 
 
 

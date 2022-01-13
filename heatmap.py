@@ -10,9 +10,10 @@ for line in file:
     separated = line.split(", ")
     bbc = separated[1].strip("%")
     forbes = separated[2].strip("\n")
-    fox_news=separated[3].strip('%')
-    huff_post=separated[4]
-    list = [float(bbc), float(forbes.strip("%")),float(fox_news.strip('%')),float(huff_post)]
+    fox_news=separated[3].strip('\n')
+    huff_post=separated[4].strip('\n')
+    print(huff_post)
+    list = [float(bbc), float(forbes.strip("%")),float(fox_news.strip('%')),float(huff_post.strip('%'))]
     array.append(list)
 print(array)
 file.close()
