@@ -10,7 +10,6 @@ folder = "Bio data"
 
 file = open(folder + "/" + 'unique_information.csv')
 csvreader = csv.reader(file)
-birth_area=[]
 all_the_people = []
 people_from_east_coast=0
 people_from_west_coast=0
