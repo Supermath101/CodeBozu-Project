@@ -1,0 +1,28 @@
+Insights from Heatmap
+
+BBC
+Most favoured politican(s): Barack Obama
+Least favoured politican(s): George W. Bush
+Political Party Favoured: Democratic
+
+
+Forbes
+Most favoured politican(s): George W. Bush
+Least favoured politican(s): Donald Trump
+Political Party Favoured: Democratic
+
+
+Fox News
+Most favoured politican(s): Barack Obama
+Least favoured politican(s): Joe Biden
+Political Party Favoured: Democratic
+
+
+Huffington Post
+Most favoured politican(s): Barack Obama
+Least favoured politican(s): Donald Trump
+Political Party Favoured: Democratic
+
+
+Most favoured president overall: Barack Obama
+The overall political party favoured: Democratic
